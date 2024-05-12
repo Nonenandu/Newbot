@@ -593,5 +593,5 @@ class Call(PyTgCalls):
             
             for event in [self.one, self.two, self.three, self.four, self.five]:
                 event.on_update()(handle_update)
-ArcMusic = Call()
+ArchMusic = Call()
 
