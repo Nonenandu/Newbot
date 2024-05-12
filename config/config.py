@@ -194,6 +194,7 @@ STRING4 = getenv("STRING_SESSION4", None)
 
 STRING5 = getenv("STRING_SESSION5", None)
 
+PROXY = os.getenv("PROXY", "")
 ### DONT TOUCH or EDIT codes after this line
 
 BANNED_USERS = filters.user()
