@@ -21,13 +21,8 @@ from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls
 from ntgcalls import TelegramServerError
 from pytgcalls.exceptions import AlreadyJoinedError, NoActiveGroupCall
-from pytgcalls.types import (
-    JoinedGroupCallParticipant,
-    LeftGroupCallParticipant,
-    MediaStream,
-    Update,
-    StreamAudioEnded
-)
+from pytgcalls.types import MediaStream, Update, StreamAudioEnded, GroupCallParticipant
+
 import config
 from strings import get_string
 from ArchMusic import LOGGER, YouTube, app
