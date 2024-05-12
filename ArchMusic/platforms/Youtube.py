@@ -1,13 +1,3 @@
-#
-# Copyright (C) 2021-2023 by ArchBots@Github, < https://github.com/ArchBots >.
-#
-# This file is part of < https://github.com/ArchBots/ArchMusic > project,
-# and is released under the "GNU v3.0 License Agreement".
-# Please see < https://github.com/ArchBots/ArchMusic/blob/master/LICENSE >
-#
-# All rights reserved.
-#
-
 import asyncio
 import os
 import re
@@ -297,14 +287,25 @@ class YouTubeAPI:
             return xyz
 
         def video_dl():
-            ydl_optssx = {
-                "format": "bestvideo+bestaudio",
-                "outtmpl": "downloads/%(id)s.%(ext)s",
-                "geo_bypass": True,
-                "nocheckcertificate": True,
-                "quiet": True,
-                "no_warnings": True,
-            }
+            if config.PROXY:
+                ydl_optssx = {
+                    "format": "bestvideo+bestaudio",
+                    "outtmpl": "downloads/%(id)s.%(ext)s",
+                    "geo_bypass": True,
+                    "nocheckcertificate": True,
+                    "quiet": True,
+                    "no_warnings": True,
+                    "proxy": config.PROXY
+                }
+            else:
+                ydl_optssx = {
+                    "format": "bestvideo+bestaudio",
+                    "outtmpl": "downloads/%(id)s.%(ext)s",
+                    "geo_bypass": True,
+                    "nocheckcertificate": True,
+                    "quiet": True,
+                    "no_warnings": True,
+                }
             x = YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
             xyz = os.path.join(
