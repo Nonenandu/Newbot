@@ -40,6 +40,10 @@ class YouTubeAPI:
         self.reg = re.compile(
             r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])"
         )
+        self.proxy_host = "38.154.227.167"
+        self.proxy_port = "5868"
+        self.proxy_username = "pclzcyqn"
+        self.proxy_password = "rsr4yl0z3r5k"
 
     async def exists(
         self, link: str, videoid: Union[bool, str] = None
@@ -145,6 +149,10 @@ class YouTubeAPI:
             f"{link}",
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
+            env={"HTTP_PROXY": f"http://{self.proxy_host}:{self.proxy_port}",
+                 "HTTPS_PROXY": f"http://{self.proxy_host}:{self.proxy_port}",
+                 "http_proxy": f"http://{self.proxy_host}:{self.proxy_port}",
+                 "https_proxy": f"http://{self.proxy_host}:{self.proxy_port}"}
         )
         stdout, stderr = await proc.communicate()
         if stdout:
@@ -287,7 +295,7 @@ class YouTubeAPI:
             return xyz
 
         def video_dl():
-            if config.PROXY:
+            if config.PROXY_HOST:
                 ydl_optssx = {
                     "format": "bestvideo+bestaudio",
                     "outtmpl": "downloads/%(id)s.%(ext)s",
@@ -295,7 +303,7 @@ class YouTubeAPI:
                     "nocheckcertificate": True,
                     "quiet": True,
                     "no_warnings": True,
-                    "proxy": config.PROXY
+                    "proxy": f"http://{config.PROXY_USERNAME}:{config.PROXY_PASSWORD}@{config.PROXY_HOST}:{config.PROXY_PORT}"
                 }
             else:
                 ydl_optssx = {
@@ -376,6 +384,10 @@ class YouTubeAPI:
                     f"{link}",
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
+                    env={"HTTP_PROXY": f"http://{self.proxy_host}:{self.proxy_port}",
+                         "HTTPS_PROXY": f"http://{self.proxy_host}:{self.proxy_port}",
+                         "http_proxy": f"http://{self.proxy_host}:{self.proxy_port}",
+                         "https_proxy": f"http://{self.proxy_host}:{self.proxy_port}"}
                 )
                 stdout, stderr = await proc.communicate()
                 if stdout:
@@ -389,3 +401,4 @@ class YouTubeAPI:
                 None, audio_dl
             )
         return downloaded_file, direct
+
