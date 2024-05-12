@@ -1,3 +1,13 @@
+#
+# Copyright (C) 2021-2023 by ArchBots@Github, < https://github.com/ArchBots >.
+#
+# This file is part of < https://github.com/ArchBots/ArchMusic > project,
+# and is released under the "GNU v3.0 License Agreement".
+# Please see < https://github.com/ArchBots/ArchMusic/blob/master/LICENSE >
+#
+# All rights reserved.
+#
+
 import asyncio
 import os
 import re
@@ -40,10 +50,6 @@ class YouTubeAPI:
         self.reg = re.compile(
             r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])"
         )
-        self.proxy_host = "38.154.227.167"
-        self.proxy_port = "5868"
-        self.proxy_username = "pclzcyqn"
-        self.proxy_password = "rsr4yl0z3r5k"
 
     async def exists(
         self, link: str, videoid: Union[bool, str] = None
@@ -149,10 +155,6 @@ class YouTubeAPI:
             f"{link}",
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
-            env={"HTTP_PROXY": f"http://{self.proxy_host}:{self.proxy_port}",
-                 "HTTPS_PROXY": f"http://{self.proxy_host}:{self.proxy_port}",
-                 "http_proxy": f"http://{self.proxy_host}:{self.proxy_port}",
-                 "https_proxy": f"http://{self.proxy_host}:{self.proxy_port}"}
         )
         stdout, stderr = await proc.communicate()
         if stdout:
@@ -295,25 +297,14 @@ class YouTubeAPI:
             return xyz
 
         def video_dl():
-            if config.PROXY_HOST:
-                ydl_optssx = {
-                    "format": "bestvideo+bestaudio",
-                    "outtmpl": "downloads/%(id)s.%(ext)s",
-                    "geo_bypass": True,
-                    "nocheckcertificate": True,
-                    "quiet": True,
-                    "no_warnings": True,
-                    "proxy": f"http://{config.PROXY_USERNAME}:{config.PROXY_PASSWORD}@{config.PROXY_HOST}:{config.PROXY_PORT}"
-                }
-            else:
-                ydl_optssx = {
-                    "format": "bestvideo+bestaudio",
-                    "outtmpl": "downloads/%(id)s.%(ext)s",
-                    "geo_bypass": True,
-                    "nocheckcertificate": True,
-                    "quiet": True,
-                    "no_warnings": True,
-                }
+            ydl_optssx = {
+                "format": "bestvideo+bestaudio",
+                "outtmpl": "downloads/%(id)s.%(ext)s",
+                "geo_bypass": True,
+                "nocheckcertificate": True,
+                "quiet": True,
+                "no_warnings": True,
+            }
             x = YoutubeDL(ydl_optssx)
             info = x.extract_info(link, False)
             xyz = os.path.join(
@@ -384,10 +375,6 @@ class YouTubeAPI:
                     f"{link}",
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
-                    env={"HTTP_PROXY": f"http://{self.proxy_host}:{self.proxy_port}",
-                         "HTTPS_PROXY": f"http://{self.proxy_host}:{self.proxy_port}",
-                         "http_proxy": f"http://{self.proxy_host}:{self.proxy_port}",
-                         "https_proxy": f"http://{self.proxy_host}:{self.proxy_port}"}
                 )
                 stdout, stderr = await proc.communicate()
                 if stdout:
@@ -401,4 +388,3 @@ class YouTubeAPI:
                 None, audio_dl
             )
         return downloaded_file, direct
-
