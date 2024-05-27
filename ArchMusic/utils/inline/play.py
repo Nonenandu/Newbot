@@ -144,9 +144,11 @@ def telegram_markup(_, chat_id):
                 text=_["PL_B_3"],
                 callback_data=f"PanelMarkup None|{chat_id}",
             ),
-            InlineKeyboardButton(
+         ],
+        [
+             InlineKeyboardButton(
                 text=_["CLOSEMENU_BUTTON"], callback_data="close"
-            ),
+            )
         ],
     ]
     return buttons
@@ -209,10 +211,11 @@ def livestream_markup(_, videoid, user_id, mode, channel, fplay):
                 text=_["P_B_3"],
                 callback_data=f"LiveStream {videoid}|{user_id}|{mode}|{channel}|{fplay}",
             ),
-            InlineKeyboardButton(
-                text=_["CLOSEMENU_BUTTON"],
-                callback_data=f"forceclose {videoid}|{user_id}",
-            ),
+         ],
+        [
+             InlineKeyboardButton(
+                text=_["CLOSEMENU_BUTTON"], callback_data="close"
+            )
         ],
     ]
     return buttons
@@ -290,6 +293,11 @@ def panel_markup_1(_, videoid, chat_id):
                 callback_data=f"Pages Forw|0|{videoid}|{chat_id}",
             ),
         ],
+        [
+             InlineKeyboardButton(
+                text=_["CLOSEMENU_BUTTON"], callback_data="close"
+            )
+        ],
     ]
     return buttons
 
@@ -327,6 +335,11 @@ def panel_markup_2(_, videoid, chat_id):
                 text="▶️",
                 callback_data=f"Pages Forw|1|{videoid}|{chat_id}",
             ),
+        ],
+        [
+             InlineKeyboardButton(
+                text=_["CLOSEMENU_BUTTON"], callback_data="close"
+            )
         ],
     ]
     return buttons
@@ -367,6 +380,11 @@ def panel_markup_3(_, videoid, chat_id):
                 text="▶️",
                 callback_data=f"Pages Forw|2|{videoid}|{chat_id}",
             ),
+        ],
+        [
+             InlineKeyboardButton(
+                text=_["CLOSEMENU_BUTTON"], callback_data="close"
+            )
         ],
     ]
     return buttons
