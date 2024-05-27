@@ -2,8 +2,6 @@ import math
 
 from pyrogram.types import InlineKeyboardButton
 
-from ArchMusic.utils.formatters import time_to_seconds
-
 
 def track_markup(_, videoid, user_id, channel, fplay):
     buttons = [
